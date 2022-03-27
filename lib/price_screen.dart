@@ -24,7 +24,7 @@ class _PriceScreenState extends State<PriceScreen> {
 
   List<DropdownMenuItem> getDropdownMenuItems() {
     List<DropdownMenuItem<String>> dropdownMenuItemsCurrency =
-    []; // String을 꼭 넣어줘야 되는거야 뭐야~!!
+        []; // String을 꼭 넣어줘야 되는거야 뭐야~!!
     for (String newCurrency in currenciesList) {
       var newCurrencyItem = DropdownMenuItem(
         child: Text(newCurrency),
@@ -52,6 +52,16 @@ class _PriceScreenState extends State<PriceScreen> {
     }
     return pickerMenuItems;
   }
+
+  Widget osSelect() {
+    if (Platform.isAndroid == true) {
+      return androidButton();
+    } else if (Platform.isIOS == true) {
+      return iosButton();
+    }
+  }
+
+  // 웹 에뮬에서 Platform 운영체제 확인을 지원하지 않음!!
 
   @override
   Widget build(BuildContext context) {
@@ -85,11 +95,11 @@ class _PriceScreenState extends State<PriceScreen> {
             ),
           ),
           Container(
-              height: 150.0,
-              alignment: Alignment.center,
-              padding: EdgeInsets.only(bottom: 30.0),
-              color: Colors.lightBlue,
-              child: Platform.isAndroid ? androidButton() : iosButton(),
+            height: 150.0,
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(bottom: 30.0),
+            color: Colors.lightBlue,
+            child: androidButton(),
           ),
         ],
       ),
