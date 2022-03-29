@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'coin_data.dart';
 import 'dart:io' show Platform; // iOS android 구별하기 위해 임포트
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+const apiKey = 'EA833DEA-DC66-47B1-BF2E-B8628619FAAD';
+var selectedCurrency = 'KRW';
+
+String full_data;
+
+String raw_exchange_rate;
 
 class PriceScreen extends StatefulWidget {
   @override
@@ -9,7 +18,15 @@ class PriceScreen extends StatefulWidget {
 }
 
 class _PriceScreenState extends State<PriceScreen> {
-  String selectedCurrency = 'KRW';
+  String url =
+      "https://rest.coinapi.io/v1/exchangerate/BTC/$selectedCurrency?apikey=$apiKey";
+
+  Future getData() async {
+    http.Response response = await http.get(url);
+    full_data=jsonDecode(response.body);
+    print(full_data);
+    raw_exchange_rate = full_data['rate'];
+  }
 
   DropdownButton<String> androidButton() {
     return DropdownButton<String>(
@@ -18,6 +35,7 @@ class _PriceScreenState extends State<PriceScreen> {
         onChanged: (value) {
           setState(() {
             selectedCurrency = value;
+            getData();
           });
         });
   }
@@ -84,7 +102,7 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 BTC = ? KRW',
+                  '1 비트코인 = $raw_exchange_rate KRW',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.0,
