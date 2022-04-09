@@ -8,9 +8,10 @@ import 'dart:convert';
 const apiKey = 'EA833DEA-DC66-47B1-BF2E-B8628619FAAD';
 var selectedCurrency = 'KRW';
 
-String full_data;
+var full_data;
 
-String raw_exchange_rate;
+double raw_exchange_rate;
+int exchange_rate;
 
 class PriceScreen extends StatefulWidget {
   @override
@@ -25,7 +26,11 @@ class _PriceScreenState extends State<PriceScreen> {
     http.Response response = await http.get(url);
     full_data=jsonDecode(response.body);
     print(full_data);
-    raw_exchange_rate = full_data['rate'];
+    raw_exchange_rate=full_data['rate'];
+    print(raw_exchange_rate);
+    exchange_rate=raw_exchange_rate.toInt();
+    print(exchange_rate);
+
   }
 
   DropdownButton<String> androidButton() {
@@ -102,7 +107,7 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 비트코인 = $raw_exchange_rate KRW',
+                  '1 비트코인 = $exchange_rate $selectedCurrency',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.0,
