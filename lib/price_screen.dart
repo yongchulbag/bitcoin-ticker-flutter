@@ -28,25 +28,26 @@ class PriceScreen extends StatefulWidget {
 class _PriceScreenState extends State<PriceScreen> {
   String btc_url =
       "https://rest.coinapi.io/v1/exchangerate/BTC/$selectedCurrency?apikey=$apiKey";
-  String eth_url=
+  String eth_url =
       "https://rest.coinapi.io/v1/exchangerate/ETH/$selectedCurrency?apikey=$apiKey";
-  String doge_url=
+  String doge_url =
       "https://rest.coinapi.io/v1/exchangerate/DOGE/$selectedCurrency?apikey=$apiKey";
+
   Future getData() async {
     http.Response btc_response = await http.get(btc_url);
-    btc_full_data=jsonDecode(btc_response.body);
-    btc_raw_exchange_rate=btc_full_data['rate'];
-    btc_exchange_rate=btc_raw_exchange_rate.toInt();
+    btc_full_data = jsonDecode(btc_response.body);
+    btc_raw_exchange_rate = btc_full_data['rate'];
+    btc_exchange_rate = btc_raw_exchange_rate.toInt();
 
     http.Response eth_response = await http.get(eth_url);
-    eth_full_data=jsonDecode(eth_response.body);
-    eth_raw_exchange_rate=eth_full_data['rate'];
-    eth_exchange_rate=eth_raw_exchange_rate.toInt();
+    eth_full_data = jsonDecode(eth_response.body);
+    eth_raw_exchange_rate = eth_full_data['rate'];
+    eth_exchange_rate = eth_raw_exchange_rate.toInt();
 
     http.Response doge_response = await http.get(doge_url);
-    doge_full_data=jsonDecode(doge_response.body);
-    doge_raw_exchange_rate=doge_full_data['rate'];
-    doge_exchange_rate=doge_raw_exchange_rate.toInt();
+    doge_full_data = jsonDecode(doge_response.body);
+    doge_raw_exchange_rate = doge_full_data['rate'];
+    doge_exchange_rate = doge_raw_exchange_rate.toInt();
   }
 
   DropdownButton<String> androidButton() {
@@ -132,7 +133,8 @@ class _PriceScreenState extends State<PriceScreen> {
                 ),
               ),
             ),
-          ),Padding(
+          ),
+          Padding(
             padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
             child: Card(
               color: Colors.lightBlueAccent,
@@ -152,7 +154,8 @@ class _PriceScreenState extends State<PriceScreen> {
                 ),
               ),
             ),
-          ),Padding(
+          ),
+          Padding(
             padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
             child: Card(
               color: Colors.lightBlueAccent,
